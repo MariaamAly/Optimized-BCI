@@ -65,9 +65,9 @@ if file is not None :
     File = pd.read_csv(file)
     
     arrays = []
-    for i in range(0,50):
+    for i in range(0,59):
         arrays.append(np.array(File.iloc[0:,i]))
-        figure.add_trace(go.Scatter(x =x1, y = arrays[i],mode = "lines",line=dict(color=random_color()),name='Orignal Signal'),)
+        figure.add_trace(go.Scatter(x =x1, y = arrays[i],mode = "lines",line=dict(color=random_color()),name=f'Original Signal {i+1}'),)
     
 
 
@@ -95,9 +95,9 @@ if file2 is not None :
     
     File2 = pd.read_csv(file2)
     arrays2 = []
-    for i in range(0,50):
+    for i in range(0,59):
         arrays2.append(np.array(File2.iloc[0:,i]))
-        figure2.add_trace(go.Scatter(x =x1, y = arrays2[i],mode = "lines",line=dict(color=random_color()),name='Filtered Signal'),)
+        figure2.add_trace(go.Scatter(x =x1, y = arrays2[i],mode = "lines",line=dict(color=random_color()),name=f'Filtered Signal {i+1}'),)
     
 
 with col2:
@@ -112,16 +112,18 @@ if file3 is not None :
     arrays3 = []
     for i in range(0,59):
         arrays3.append(np.array(File3.iloc[0:,i]))
-    data_array = [np.array(arrays3)]
+    data_array = [arrays3]
     data_array= np.array(data_array)
+
+    y_pred =load_model_predict(data_array, 'C:\\Users\\emy33\\ds1afinalized_model.sav')
+    print(y_pred)
 
 
     st.write("### DataFrame from CSV:")
     st.dataframe(File3)
 
     #Y predictions for the test data
-    y_pred =load_model_predict(data_array, "C:\\Users\\emy33\\ds1ffinalized_model.sav")
-    print(y_pred)
+
     
     st.subheader("Result")
     if y_pred ==[1]:
